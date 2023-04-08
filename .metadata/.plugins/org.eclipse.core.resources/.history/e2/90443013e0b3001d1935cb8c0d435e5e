@@ -1,0 +1,75 @@
+package myApp;
+
+import java.util.List;
+import java.util.Scanner;
+
+import dao.DAO;
+import dao.CarroDAO;
+import model.Carro;
+
+public class MyAplicacao {
+	
+	public static Scanner sc = new Scanner(System.in);
+	
+	public static void main(String[] args) throws Exception {
+		
+		CarroDAO carroDAO = new CarroDAO();
+		
+		String marca, modelo;
+		
+		int codigo, ano, op, resp;
+		
+		op = 0;
+		
+		while (op != 5) {
+			System.out.print("Escolha uma opcao:\n\n 1 - Listar\n 2 - Inserir\n 3 - Excluir\n 4 - Atualizar\n 5 - Sair\n\nSua escolha: ");
+			op = sc.nextInt();
+			
+			if (op == 1) {
+				System.out.print("Como deseja listar?\n\n1 - Ordenar por código\nou\n2 - Ordenar por marca\n: ");
+				resp = sc.nextInt();
+				if (resp == 1) {
+					System.out.println("\n\n==== Carros ordenados por código === ");
+					List<Carro> carros = carroDAO.getOrderByCodigo();
+					for (Carro c: carros) {
+						System.out.println(c.toString());
+					}
+				} else {
+					System.out.println("\n\n==== Carros ordenados por marca === ");
+					List<Carro> carros = carroDAO.getOrderByMarca();
+					for (Carro c: carros) {
+						System.out.println(c.toString());
+					}
+				}
+			}
+			else if (op == 2) {
+				System.out.println("\n\n==== Inserir carro === ");
+				System.out.println("")
+				Carro carro = new Carro(11, "bmw", "xdrive", 2022);
+				if(carroDAO.insert(carro) == true) {
+					System.out.println("Inserção com sucesso -> " + carro.toString());
+				}
+			}
+		}
+		
+		System.out.println("\n\n==== Testando localização ===");
+		System.out.println("Carro (" + carro.getCodigo() + "): " + carroDAO.localizar("bmw", "xdrive", 2022));
+			
+		System.out.println("\n\n==== Mostrar carros do ano atual === ");
+		List<Carro> carros = carroDAO.getAnoAtual();
+		for (Carro c: carros) {
+			System.out.println(c.toString());
+		}
+
+		System.out.println("\n\n==== Atualizar modelo (código (" + carro.getCodigo() + ")) === ");
+		carro.setModelo(DAO.toMD5("xdrive"));
+		carroDAO.update(carro);
+		
+		System.out.println("\n\n==== Testando localização ===");
+		System.out.println("Marca (" + carro.getMarca() + "): " + carroDAO.localizar("bmw", DAO.toMD5("xdrive"), 2022));
+		
+		System.out.println("\n\n==== Excluir carro (código " + carro.getCodigo() + ") === ");
+		carroDAO.delete(carro.getCodigo());
+		
+	}
+}

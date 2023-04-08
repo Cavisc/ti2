@@ -1,0 +1,55 @@
+package myApp;
+
+import java.util.List;
+
+import dao.DAO;
+import dao.CarroDAO;
+import model.Carro;
+
+public class MyAplicacao {
+	
+	public static void main(String[] args) throws Exception {
+		
+		CarroDAO carroDAO = new CarroDAO();
+		
+		System.out.println("\n\n==== Inserir carro === ");
+		Carro carro = new Carro(11, "bmw", "xdrive", 2022);
+		if(carroDAO.insert(carro) == true) {
+			System.out.println("Inserção com sucesso -> " + carro.toString());
+		}
+		
+		System.out.println("\n\n==== Testando localização ===");
+		System.out.println("Carro (" + carro.getCodigo() + "): " + carroDAO.localizar("volvo", "xc90", 2002));
+			
+		System.out.println("\n\n==== Mostrar carros do ano atual === ");
+		List<Carro> carros = carroDAO.getAnoAtual();
+		for (Carro c: carros) {
+			System.out.println(c.toString());
+		}
+
+		System.out.println("\n\n==== Atualizar modelo (código (" + carro.getCodigo() + ") === ");
+		carro.setModelo(DAO.toMD5("xc40"));
+		carroDAO.update(carro);
+		
+		System.out.println("\n\n==== Testando localização ===");
+		System.out.println("Marca (" + carro.getMarca() + "): " + carroDAO.localizar("volvo", DAO.toMD5("xc40"), 2023));		
+		
+		System.out.println("\n\n==== Invadir usando SQL Injection ===");
+		System.out.println("Usuário (" + carro.getMarca() + "): " + carroDAO.localizar("volvo", "x' OR 'x' LIKE 'x", 2023));
+
+		System.out.println("\n\n==== Mostrar carros ordenados por código === ");
+		carros = carroDAO.getOrderByCodigo();
+		for (Carro c: carros) {
+			System.out.println(c.toString());
+		}
+		
+		System.out.println("\n\n==== Excluir usuário (código " + carro.getCodigo() + ") === ");
+		carroDAO.delete(carro.getCodigo());
+		
+		System.out.println("\n\n==== Mostrar carros ordenados por marca === ");
+		carros = carroDAO.getOrderByMarca();
+		for (Carro c: carros) {
+			System.out.println(c.toString());
+		}
+	}
+}
