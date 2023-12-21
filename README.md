@@ -1,5 +1,5 @@
 # 📝 Exercícios de TI2
-Exercíos realizados durante a matéria de **Trabalho Interdisciplinar II** no 2º período do curso de Ciência da Computação.
+Exercícios realizados durante a matéria de **Trabalho Interdisciplinar II** no 2º período do curso de Ciência da Computação.
 
 ### EX1
 #### **Objetivo do Exercício:**
