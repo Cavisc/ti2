@@ -41,7 +41,7 @@ Exercícios realizados durante a matéria de **Trabalho Interdisciplinar II** no
 ### EX4
 #### **Objetivo do Exercício:**
    - Aprender a utilizar os recursos da Azure.
-   - Aplicar os conhecimentos de **Sistemas Inteligente**.
+   - Aplicar os conhecimentos de **Sistemas Inteligentes**.
 
 #### **Atividades:**
    - [x] Iniciar projeto na Eclipse.
